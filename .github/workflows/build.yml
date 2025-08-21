@@ -3,7 +3,7 @@ name: Build FlameOS ISO
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # allow manual run too
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,10 +20,10 @@ jobs:
         run: |
           pacman -Syu --noconfirm archiso git
 
-      - name: Run build.sh
+      - name: Build ISO
         run: |
-          chmod +x build.sh
-          ./build.sh
+          mkdir -p out work
+          mkarchiso -v -w work -o out .
 
       - name: Upload ISO
         uses: actions/upload-artifact@v4
