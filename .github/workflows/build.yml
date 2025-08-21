@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  VERSION: v0.0.1 # or update in repo environment variables
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,8 +28,17 @@ jobs:
           mkdir -p out work
           mkarchiso -v -w work -o out .
 
-      - name: Upload ISO
+      - name: Upload ISO as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: flameos-iso
           path: out/*.iso
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.VERSION }}
+          name: FlameOS ${{ env.VERSION }}
+          files: out/*.iso
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
