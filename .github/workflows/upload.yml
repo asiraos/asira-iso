@@ -1,0 +1,29 @@
+name: Upload Existing ISO
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find ISO
+        id: find_iso
+        run: |
+          ISO_PATH=$(find out -type f -name "*.iso" | head -n 1)
+          if [ -z "$ISO_PATH" ]; then
+            echo "No ISO found in out/"
+            exit 1
+          fi
+          echo "iso=$ISO_PATH" >> $GITHUB_OUTPUT
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ vars.VERSION }}
+          name: "FlameOS ${{ vars.VERSION }}"
+          files: ${{ steps.find_iso.outputs.iso }}
