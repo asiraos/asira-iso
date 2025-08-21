@@ -5,9 +5,6 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-env:
-  VERSION: v0.0.1 # or update in repo environment variables
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,8 +34,9 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.VERSION }}
-          name: FlameOS ${{ env.VERSION }}
-          files: out/*.iso
+          tag_name: ${{ secrets.VERSION }}
+          name: FlameOS ${{ secrets.VERSION }}
+          files: |
+            out/*.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
