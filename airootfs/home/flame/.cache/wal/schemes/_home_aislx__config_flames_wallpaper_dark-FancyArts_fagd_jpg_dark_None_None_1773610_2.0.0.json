@@ -1,0 +1,28 @@
+{
+    "checksum": "fc6c66e5866fe3db9bd3d845b822f66d",
+    "wallpaper": "/home/aislx/.config/flames/wallpaper/dark-FancyArts/fagd.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#130916",
+        "foreground": "#c4c1c4",
+        "cursor": "#c4c1c4"
+    },
+    "colors": {
+        "color0": "#130916",
+        "color1": "#FCB30B",
+        "color2": "#5C0984",
+        "color3": "#6A108E",
+        "color4": "#7A2699",
+        "color5": "#7B12A5",
+        "color6": "#8F259A",
+        "color7": "#c4c1c4",
+        "color8": "#67596c",
+        "color9": "#FCB30B",
+        "color10": "#5C0984",
+        "color11": "#6A108E",
+        "color12": "#7A2699",
+        "color13": "#7B12A5",
+        "color14": "#8F259A",
+        "color15": "#c4c1c4"
+    }
+}

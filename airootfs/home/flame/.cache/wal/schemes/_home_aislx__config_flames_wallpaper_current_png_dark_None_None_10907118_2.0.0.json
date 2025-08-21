@@ -1,0 +1,28 @@
+{
+    "checksum": "0c08fff53cb369cc1aa409eee733d8ad",
+    "wallpaper": "/home/aislx/.config/flames/wallpaper/current.png",
+    "alpha": "100",
+    "special": {
+        "background": "#0c121b",
+        "foreground": "#c2c3c6",
+        "cursor": "#c2c3c6"
+    },
+    "colors": {
+        "color0": "#0c121b",
+        "color1": "#2B3850",
+        "color2": "#563E42",
+        "color3": "#30435B",
+        "color4": "#274762",
+        "color5": "#5A4F58",
+        "color6": "#A95C3B",
+        "color7": "#c2c3c6",
+        "color8": "#5b626f",
+        "color9": "#2B3850",
+        "color10": "#563E42",
+        "color11": "#30435B",
+        "color12": "#274762",
+        "color13": "#5A4F58",
+        "color14": "#A95C3B",
+        "color15": "#c2c3c6"
+    }
+}

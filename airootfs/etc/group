@@ -1,0 +1,6 @@
+root:x:0:root
+adm:x:4:flame
+wheel:x:10:flame
+uucp:x:14:flame
+users:x:100:flame
+flame:x:1000:flame

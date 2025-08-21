@@ -1,0 +1,28 @@
+{
+    "checksum": "8e09c04a74c03aa10db7c373c912d16f",
+    "wallpaper": "/home/aislx/.config/flames/wallpaper/dark-dharmx/a_black_and_white_image_of_a_group_of_people.png",
+    "alpha": "100",
+    "special": {
+        "background": "#0b0404",
+        "foreground": "#c2c0c0",
+        "cursor": "#c2c0c0"
+    },
+    "colors": {
+        "color0": "#0b0404",
+        "color1": "#81827E",
+        "color2": "#949494",
+        "color3": "#9FA19E",
+        "color4": "#ADAEAD",
+        "color5": "#BFC1BE",
+        "color6": "#CECFCE",
+        "color7": "#c2c0c0",
+        "color8": "#665454",
+        "color9": "#81827E",
+        "color10": "#949494",
+        "color11": "#9FA19E",
+        "color12": "#ADAEAD",
+        "color13": "#BFC1BE",
+        "color14": "#CECFCE",
+        "color15": "#c2c0c0"
+    }
+}

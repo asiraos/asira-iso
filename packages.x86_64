@@ -1,0 +1,106 @@
+alsa-utils
+amd-ucode
+arch-install-scripts
+archinstall
+base
+btrfs-progs
+cryptsetup
+dhcpcd
+diffutils
+efibootmgr
+e2fsprogs
+exfatprogs
+gptfdisk
+grub
+intel-ucode
+iw
+iwd
+less
+linux
+linux-firmware
+man-db
+man-pages
+mkinitcpio
+nano
+ntfs-3g
+parted
+reflector
+rsync
+sudo
+systemd-resolvconf
+usbutils
+vim
+wireless-regdb
+wireless_tools
+wpa_supplicant
+xdg-utils
+xfsprogs
+zsh
+wget
+
+# Software
+
+ntfs-3g
+firefox
+chromium
+fastfetch
+dolphin
+kitty
+gwenview
+gparted
+mpv
+htop
+nvtop
+
+
+# Desktop Enviorement
+hyprland
+hyprpaper
+ttf-firacode-nerd
+ttf-jetbrains-mono
+swww
+waybar
+sddm
+
+# VM support
+
+## Spice
+
+spice-vdagent
+
+## VMware
+
+open-vm-tools
+xf86-input-vmmouse
+xf86-video-qxl
+
+
+# Gpu Drivers
+
+## Nvidia propiretray
+
+nvidia
+nvidia-utils
+nvidia-settings
+dkms
+libva-nvidia-driver
+xorg-server
+xorg-xinit
+
+## Intel Drivers
+
+intel-media-driver
+libva-intel-driver
+mesa
+vulkan-intel
+xorg-server
+xorg-xinit
+libva-mesa-driver
+
+## Amd Drivers
+vulkan-radeon
+xf86-video-amdgpu
+xf86-video-ati
+xorg-server
+xorg-xinit
+

@@ -1,0 +1,28 @@
+{
+    "checksum": "5d0a7748370117bb870c679d0e5e3914",
+    "wallpaper": "/home/aislx/Downloads/old/ChatGPT Image Jul 22, 2025, 11_43_57 AM.png",
+    "alpha": "100",
+    "special": {
+        "background": "#12080e",
+        "foreground": "#c3c1c2",
+        "cursor": "#c3c1c2"
+    },
+    "colors": {
+        "color0": "#12080e",
+        "color1": "#AE0806",
+        "color2": "#D00E05",
+        "color3": "#EB260D",
+        "color4": "#F05E08",
+        "color5": "#DD4555",
+        "color6": "#F2A00C",
+        "color7": "#c3c1c2",
+        "color8": "#6a5764",
+        "color9": "#AE0806",
+        "color10": "#D00E05",
+        "color11": "#EB260D",
+        "color12": "#F05E08",
+        "color13": "#DD4555",
+        "color14": "#F2A00C",
+        "color15": "#c3c1c2"
+    }
+}

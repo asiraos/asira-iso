@@ -1,0 +1,21 @@
+set $wallpaper /home/aislx/.config/flames/wallpaper/dark-Testing/current.png
+
+set $background #100907
+set $foreground #c3c1c1
+
+set $color0 #100907
+set $color1 #9B2407
+set $color2 #B72104
+set $color3 #CE1902
+set $color4 #E41E02
+set $color5 #D52303
+set $color6 #EA2603
+set $color7 #c3c1c1
+set $color8 #695c56
+set $color9 #9B2407
+set $color10 #B72104
+set $color11 #CE1902
+set $color12 #E41E02
+set $color13 #D52303
+set $color14 #EA2603
+set $color15 #c3c1c1

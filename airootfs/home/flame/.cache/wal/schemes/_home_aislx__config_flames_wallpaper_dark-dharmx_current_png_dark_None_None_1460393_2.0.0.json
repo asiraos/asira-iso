@@ -1,0 +1,28 @@
+{
+    "checksum": "30c16a9729f990c0d47e4697381156a3",
+    "wallpaper": "/home/aislx/.config/flames/wallpaper/dark-dharmx/current.png",
+    "alpha": "100",
+    "special": {
+        "background": "#0e1d20",
+        "foreground": "#c2c6c7",
+        "cursor": "#c2c6c7"
+    },
+    "colors": {
+        "color0": "#0e1d20",
+        "color1": "#0B5065",
+        "color2": "#2E5561",
+        "color3": "#526469",
+        "color4": "#78847C",
+        "color5": "#347486",
+        "color6": "#567A88",
+        "color7": "#c2c6c7",
+        "color8": "#5d6e72",
+        "color9": "#0B5065",
+        "color10": "#2E5561",
+        "color11": "#526469",
+        "color12": "#78847C",
+        "color13": "#347486",
+        "color14": "#567A88",
+        "color15": "#c2c6c7"
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "checksum": "245211d54707ca590ef033289d614e7e",
+    "wallpaper": "/home/aislx/.config/flames/wallpaper/dark-FancyArts/Fantasy-IcyMountain.png",
+    "alpha": "100",
+    "special": {
+        "background": "#12172a",
+        "foreground": "#c3c5c9",
+        "cursor": "#c3c5c9"
+    },
+    "colors": {
+        "color0": "#12172a",
+        "color1": "#516EA1",
+        "color2": "#957886",
+        "color3": "#3B85B3",
+        "color4": "#678CB8",
+        "color5": "#6798C7",
+        "color6": "#AEA5B5",
+        "color7": "#c3c5c9",
+        "color8": "#616676",
+        "color9": "#516EA1",
+        "color10": "#957886",
+        "color11": "#3B85B3",
+        "color12": "#678CB8",
+        "color13": "#6798C7",
+        "color14": "#AEA5B5",
+        "color15": "#c3c5c9"
+    }
+}

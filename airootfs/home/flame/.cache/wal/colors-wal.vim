@@ -1,0 +1,23 @@
+" Special
+let wallpaper  = "/home/aislx/.config/flames/wallpaper/dark-Testing/current.png"
+let background = "#100907"
+let foreground = "#c3c1c1"
+let cursor     = "#c3c1c1"
+
+" Colors
+let color0  = "#100907"
+let color1  = "#9B2407"
+let color2  = "#B72104"
+let color3  = "#CE1902"
+let color4  = "#E41E02"
+let color5  = "#D52303"
+let color6  = "#EA2603"
+let color7  = "#c3c1c1"
+let color8  = "#695c56"
+let color9  = "#9B2407"
+let color10 = "#B72104"
+let color11 = "#CE1902"
+let color12 = "#E41E02"
+let color13 = "#D52303"
+let color14 = "#EA2603"
+let color15 = "#c3c1c1"

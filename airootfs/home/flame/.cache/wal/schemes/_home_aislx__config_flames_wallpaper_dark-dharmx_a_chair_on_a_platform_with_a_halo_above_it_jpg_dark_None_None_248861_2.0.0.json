@@ -1,0 +1,28 @@
+{
+    "checksum": "30c16a9729f990c0d47e4697381156a3",
+    "wallpaper": "/home/aislx/.config/flames/wallpaper/dark-dharmx/a_chair_on_a_platform_with_a_halo_above_it.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#0e1d20",
+        "foreground": "#c2c6c7",
+        "cursor": "#c2c6c7"
+    },
+    "colors": {
+        "color0": "#0e1d20",
+        "color1": "#516368",
+        "color2": "#78847C",
+        "color3": "#497887",
+        "color4": "#5496A4",
+        "color5": "#6C9BA9",
+        "color6": "#93B3BE",
+        "color7": "#c2c6c7",
+        "color8": "#5d6e72",
+        "color9": "#516368",
+        "color10": "#78847C",
+        "color11": "#497887",
+        "color12": "#5496A4",
+        "color13": "#6C9BA9",
+        "color14": "#93B3BE",
+        "color15": "#c2c6c7"
+    }
+}
