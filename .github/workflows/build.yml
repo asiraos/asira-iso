@@ -1,43 +1,32 @@
 name: Build FlameOS ISO
 
 on:
-  workflow_dispatch: # manual run
   push:
     branches: [ main ]
-
-env:
-  VERSION: v0.0.1   # <-- change this for each release
+  workflow_dispatch: # allow manual run too
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged   # mkarchiso needs this
 
     steps:
-      - name: Checkout source
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y arch-install-scripts archiso
+          pacman -Syu --noconfirm archiso git
 
       - name: Run build.sh
         run: |
           chmod +x build.sh
           ./build.sh
 
-      - name: Find ISO in out/
-        id: find_iso
-        run: |
-          ISO_PATH=$(find out -type f -name "*.iso" | head -n 1)
-          echo "iso=$ISO_PATH" >> $GITHUB_OUTPUT
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: ${{ env.VERSION }}
-          name: "FlameOS ${{ env.VERSION }}"
-          body: "Automated build of FlameOS ISO version ${{ env.VERSION }}"
-          files: ${{ steps.find_iso.outputs.iso }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: flameos-iso
+          path: out/*.iso
