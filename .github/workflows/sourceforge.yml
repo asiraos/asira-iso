@@ -1,6 +1,7 @@
-name: Upload to SourceForge with SSH Key
+name: Upload hello.txt to SourceForge with SSH Key
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 jobs:
   upload:
@@ -19,9 +20,11 @@ jobs:
           echo "Hello SourceForge!" > out/hello.txt
 
       - name: Set up SSH key
+        env:
+          SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SF_SSH_KEY }}" > ~/.ssh/id_ed25519
+          echo "$SF_SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
 
@@ -30,4 +33,4 @@ jobs:
           SF_USER: ${{ secrets.SF_USER }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
         run: |
-          scp out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
+          scp -i ~/.ssh/id_ed25519 out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
