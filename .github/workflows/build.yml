@@ -1,7 +1,6 @@
 name: Build FlameOS ISO
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
@@ -9,39 +8,43 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
-      options: --privileged   # mkarchiso needs this
+      options: --privileged
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: |
-          pacman -Syu --noconfirm archiso git openssh
+        run: pacman -Syu --noconfirm archiso git openssh
 
       - name: Build ISO
         run: |
           mkdir -p out work
           mkarchiso -v -w work -o out .
 
-      - name: Upload ISO as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: flameos-iso
-          path: out/*.iso
 
       - name: Add SSH key and trust SourceForge host
         env:
           SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
+        shell: bash
         run: |
-          mkdir -p ~/.ssh
-          echo "$SF_SSH_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+          mkdir -p $HOME/.ssh
+          echo "$SF_SSH_KEY" > $HOME/.ssh/id_ed25519
+          chmod 600 $HOME/.ssh/id_ed25519
+          ssh-keyscan frs.sourceforge.net >> $HOME/.ssh/known_hosts
+          chmod 644 $HOME/.ssh/known_hosts
 
       - name: Upload to SourceForge with SSH
         env:
           SF_USER: ${{ secrets.SF_USER }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
+          SF_PATH: ${{ secrets.SF_PATH }}
+        shell: bash
         run: |
-          scp -i ~/.ssh/id_ed25519 out/*.iso $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
+          scp -i $HOME/.ssh/id_ed25519 -o UserKnownHostsFile=$HOME/.ssh/known_hosts out/*.iso $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
+
+      - name: Upload ISO as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flameos-iso
+          path: out/*.iso
