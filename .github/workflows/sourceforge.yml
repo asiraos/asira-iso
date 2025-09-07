@@ -1,4 +1,4 @@
-name: Upload hello.txt to SourceForge with SSH Key
+name: Upload hello.txt to SourceForge using Password
 
 on:
   workflow_dispatch:
@@ -12,25 +12,24 @@ jobs:
 
     steps:
       - name: Install dependencies
-        run: pacman -Syu --noconfirm openssh
+        run: pacman -Syu --noconfirm sshpass openssh
 
       - name: Create hello.txt
         run: |
           mkdir -p out
           echo "Hello SourceForge!" > out/hello.txt
 
-      - name: Set up SSH key
-        env:
-          SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
+      - name: Trust SourceForge host
         run: |
           mkdir -p ~/.ssh
-          echo "$SF_SSH_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
 
-      - name: Upload to SourceForge
+      - name: Upload to SourceForge (password auth)
         env:
           SF_USER: ${{ secrets.SF_USER }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
         run: |
-          scp -i ~/.ssh/id_ed25519 out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
+          echo "$SF_PASSWORD" > sfpass.txt
+          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=yes out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
+          rm sfpass.txt
