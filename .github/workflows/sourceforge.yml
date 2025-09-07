@@ -6,13 +6,10 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
-    container:
-      image: archlinux:latest
-      options: --privileged
 
     steps:
       - name: Install dependencies
-        run: pacman -Syu --noconfirm sshpass openssh
+        run: sudo apt update && sudo apt install -y sshpass openssh-client
 
       - name: Create hello.txt
         run: |
