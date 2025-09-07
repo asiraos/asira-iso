@@ -31,12 +31,13 @@ jobs:
           name: flameos-iso
           path: out/*.iso
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ secrets.VERSION }}
-          name: FlameOS ${{ secrets.VERSION }}
-          files: |
-            out/*.iso
+      - name: Upload to SourceForge
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SF_USER: ${{ secrets.SF_USER }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+          SF_PROJECT: ${{ secrets.SF_PROJECT }}
+          SF_PATH: ${{ secrets.SF_PATH }}
+        run: |
+          echo "$SF_PASSWORD" > sfpass.txt
+          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=no out/*.iso $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
+          rm sfpass.txt
