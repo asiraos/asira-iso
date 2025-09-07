@@ -19,12 +19,12 @@ jobs:
           mkdir -p out
           echo "Hello SourceForge!" > out/hello.txt
 
-      - name: Trust SourceForge host
+      - name: Add SourceForge to known_hosts
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
 
-      - name: Upload to SourceForge (password auth)
+      - name: Upload to SourceForge (password)
         env:
           SF_USER: ${{ secrets.SF_USER }}
           SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
