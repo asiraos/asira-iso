@@ -1,4 +1,4 @@
-name: Upload hello.txt to SourceForge (root)
+name: Upload hello.txt to SourceForge Test Folder
 
 on:
   workflow_dispatch:
@@ -19,12 +19,12 @@ jobs:
           mkdir -p out
           echo "Hello SourceForge!" > out/hello.txt
 
-      - name: Upload to SourceForge (root folder)
+      - name: Upload to SourceForge "Test" folder
         env:
           SF_USER: ${{ secrets.SF_USER }}
           SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
         run: |
           echo "$SF_PASSWORD" > sfpass.txt
-          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=no out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/
+          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=no out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/Test/
           rm sfpass.txt
