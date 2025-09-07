@@ -1,6 +1,7 @@
 name: Build FlameOS ISO
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -16,7 +17,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pacman -Syu --noconfirm archiso git
+          pacman -Syu --noconfirm archiso git openssh
 
       - name: Build ISO
         run: |
@@ -29,13 +30,19 @@ jobs:
           name: flameos-iso
           path: out/*.iso
 
-      - name: Upload to SourceForge
+      - name: Add SSH key and trust SourceForge host
+        env:
+          SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SF_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+
+      - name: Upload to SourceForge with SSH
         env:
           SF_USER: ${{ secrets.SF_USER }}
-          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
           SF_PATH: ${{ secrets.SF_PATH }}
         run: |
-          echo "$SF_PASSWORD" > sfpass.txt
-          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=no out/*.iso $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
-          rm sfpass.txt
+          scp -i ~/.ssh/id_ed25519 out/*.iso $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
