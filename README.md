@@ -1,4 +1,4 @@
-# FlameOS 🔥
+# FlameOS ISO
 
 A modern Arch Linux-based live ISO featuring Hyprland wayland compositor with a beautiful, minimal desktop experience.
 
