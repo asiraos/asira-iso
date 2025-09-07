@@ -1,0 +1,33 @@
+name: Upload hello.txt to SourceForge using SSH Key
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y openssh-client
+
+      - name: Create hello.txt
+        run: |
+          mkdir -p out
+          echo "Hello SourceForge!" > out/hello.txt
+
+      - name: Add SSH key and trust SourceForge host
+        env:
+          SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SF_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+
+      - name: Upload to SourceForge with SSH
+        env:
+          SF_USER: ${{ secrets.SF_USER }}
+          SF_PROJECT: ${{ secrets.SF_PROJECT }}
+        run: |
+          scp -i ~/.ssh/id_ed25519 out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
