@@ -1,4 +1,4 @@
-name: Test SourceForge Upload
+name: Upload hello.txt to SourceForge (root)
 
 on:
   workflow_dispatch:
@@ -12,21 +12,19 @@ jobs:
 
     steps:
       - name: Install dependencies
-        run: |
-          pacman -Syu --noconfirm git sshpass
+        run: pacman -Syu --noconfirm sshpass
 
-      - name: Create example text file
+      - name: Create hello.txt
         run: |
           mkdir -p out
-          echo "Hello SourceForge!" > out/example.txt
+          echo "Hello SourceForge!" > out/hello.txt
 
-      - name: Upload to SourceForge
+      - name: Upload to SourceForge (root folder)
         env:
           SF_USER: ${{ secrets.SF_USER }}
           SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
-          SF_PATH: ${{ secrets.SF_PATH }}
         run: |
           echo "$SF_PASSWORD" > sfpass.txt
-          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=no out/example.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
+          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=no out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/
           rm sfpass.txt
