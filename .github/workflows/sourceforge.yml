@@ -1,0 +1,32 @@
+name: Test SourceForge Upload
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged
+
+    steps:
+      - name: Install dependencies
+        run: |
+          pacman -Syu --noconfirm git sshpass
+
+      - name: Create example text file
+        run: |
+          mkdir -p out
+          echo "Hello SourceForge!" > out/example.txt
+
+      - name: Upload to SourceForge
+        env:
+          SF_USER: ${{ secrets.SF_USER }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+          SF_PROJECT: ${{ secrets.SF_PROJECT }}
+          SF_PATH: ${{ secrets.SF_PATH }}
+        run: |
+          echo "$SF_PASSWORD" > sfpass.txt
+          sshpass -f sfpass.txt scp -o StrictHostKeyChecking=no out/example.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
+          rm sfpass.txt
