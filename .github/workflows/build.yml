@@ -43,6 +43,5 @@ jobs:
         env:
           SF_USER: ${{ secrets.SF_USER }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
-          SF_PATH: ${{ secrets.SF_PATH }}
         run: |
-          scp -i ~/.ssh/id_ed25519 out/*.iso $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
+          scp -i ~/.ssh/id_ed25519 out/*.iso $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
