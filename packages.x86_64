@@ -131,7 +131,6 @@ zsh
 # Software
 firefox
 fastfetch
-dolphin
 kitty
 gwenview
 gparted
@@ -139,23 +138,8 @@ mpv
 htop
 nvtop
 
-# Desktop Environment (Hyprland)
-hyprland
-ttf-firacode-nerd
-ttf-jetbrains-mono
-swww
-waybar
-sddm
-xdg-desktop-portal-hyprland
-xdg-desktop-portal-gtk
-polkit-kde-agent
-qt5-wayland
-qt6-wayland
-wl-clipboard
-grim
-slurp
-cliphist
-wofi
+# Desktop Environment (Xfce)
+xfce4
 
 # VM Support
 spice-vdagent
