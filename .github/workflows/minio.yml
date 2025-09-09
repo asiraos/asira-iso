@@ -2,6 +2,7 @@ name: Minio Testing
 
 on:
   workflow_dispatch:
+
 jobs:
   build:
     name: Deploy
@@ -16,5 +17,5 @@ jobs:
           access_key: ${{ secrets.MINIO_ACCESS_KEY }}
           secret_key: ${{ secrets.MINIO_SECRET_KEY }}
           bucket: 'test'
-          source_dir 'public'
+          source_dir: 'public'
           target_dir: '/'
