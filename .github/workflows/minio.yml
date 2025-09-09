@@ -10,6 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Create public directory with test.txt
+        run: |
+          mkdir -p public
+          echo "Hello from FlameOS MinIO test upload!" > public/test.txt
+
       - name: Minio Deploy
         uses: lovellfelix/minio-deploy-action@v1
         with:
