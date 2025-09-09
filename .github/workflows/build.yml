@@ -1,7 +1,6 @@
 name: Build FlameOS ISO
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
