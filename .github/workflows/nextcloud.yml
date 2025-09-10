@@ -25,8 +25,8 @@ jobs:
           name: "archlinux-2025.09.01-x86_64.iso"
           uploadPath: "FlameOS-Beta"
           url: "https://cloud.theflames.fun"
-          username: ${{ secrets.CLOUD_USERNAME }}
-          password: ${{ secrets.CLOUD_PASSWORD }}
+          username: "aislx"
+          password: "god00@@"
       - name: Get upload link
         run: |
           echo "${{ steps.uploadFile.outputs.output_url }}"
