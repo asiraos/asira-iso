@@ -20,4 +20,4 @@ jobs:
       - name: Upload to FlameOS Mirror
         run: |
           chmod +x ./.github/scripts/upload-mirror.sh
-          ./.github/scripts/upload-mirror.sh archlinux-2025.09.01-x86_64.iso FlameOS-Beta https://mirror.theflames.fun
+          ./.github/scripts/upload-mirror.sh upload archlinux-2025.09.01-x86_64.iso FlameOS-Beta
