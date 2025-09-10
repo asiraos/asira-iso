@@ -82,14 +82,15 @@ if [ -n "$FOLDER" ]; then
     echo ""
 fi
 
-# Upload file with NO timeouts for unlimited file size support
+# Upload file with progress bar
 echo -e "${YELLOW}Uploading ISO file (no time limit for large files)...${NC}"
 
-# Build curl command with NO timeouts
+# Build curl command with progress bar
 CURL_CMD="curl -X POST"
 CURL_CMD="$CURL_CMD --max-time 0"
 CURL_CMD="$CURL_CMD --retry 3"
 CURL_CMD="$CURL_CMD --retry-delay 5"
+CURL_CMD="$CURL_CMD --progress-bar"
 CURL_CMD="$CURL_CMD -H 'X-API-Key: $API_KEY'"
 CURL_CMD="$CURL_CMD -F 'iso=@$ISO_FILE'"
 
@@ -99,10 +100,13 @@ fi
 
 CURL_CMD="$CURL_CMD '$MIRROR_URL/api/upload'"
 
-# Execute upload with no time limits
-echo "Starting upload (unlimited time for any file size)..."
+# Execute upload with progress bar
+echo "Starting upload with progress indicator..."
+echo ""
 upload_response=$(eval $CURL_CMD 2>&1)
 curl_exit_code=$?
+
+echo ""
 
 # Check curl exit code
 if [ $curl_exit_code -ne 0 ]; then
