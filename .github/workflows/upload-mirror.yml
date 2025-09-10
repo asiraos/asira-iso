@@ -3,7 +3,7 @@ name: Upload Mirror
 on: [workflow_dispatch]
 
 jobs:
-  upload-to-nextcloud:
+  upload-to-mirror:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,4 +16,5 @@ jobs:
           sudo apt-get install zip wget -y
           mkdir -p out
           wget https://mirror.adectra.com/archlinux/iso/2025.09.01/archlinux-2025.09.01-x86_64.iso -O archlinux-2025.09.01-x86_64.iso 
+          chmod +x ./.github/scripts/upload-mirror.sh
           ./.github/scripts/upload-mirror.sh archlinux-2025.09.01-x86_64.iso FlameOS-Beta https://mirror.theflames.fun
