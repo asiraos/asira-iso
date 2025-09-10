@@ -114,10 +114,8 @@ if [ -f "$airootfs/shadow" ]; then
 fi
 
 # passwordless sudo
-mkdir -p "$airootfs/sudoers.d"
-echo "$user ALL=(ALL) NOPASSWD: ALL" > "$airootfs/sudoers.d/00-$user-nopasswd"
-echo "Password Less entry added."
-
+mkdir -p "$airootfs/etc/sudoers.d"
+echo "$user ALL=(ALL) NOPASSWD: ALL" > "$airootfs/etc/sudoers.d/00-$user-nopasswd"
 
 # Group 
 cat > "$airootfs/group" <<EOF
