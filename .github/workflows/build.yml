@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: pacman -Syu --noconfirm archiso git openssh mktorrent curl
+        run: pacman -Syu --noconfirm archiso git openssh curl
 
       - name: Build ISO
         run: |
@@ -49,9 +49,13 @@ jobs:
           CLOUD_PATH: ${{ secrets.CLOUD_PATH }}
         shell: bash
         run: |
+          # Ensure target folder exists
+          curl -s -u "$CLOUD_USER:$CLOUD_PASSWORD" -X MKCOL "https://cloud.theflames.fun/remote.php/dav/files/$CLOUD_USER/$CLOUD_PATH" || true
+
+          # Upload all files in out/
           for file in out/*; do
             echo "Uploading $file to Nextcloud..."
-            curl -u "$CLOUD_USER:$CLOUD_PASSWORD" -T "$file" "https://cloud.theflames.fun/remote.php/dav/files/$CLOUD_USER/$CLOUD_PATH/"
+            curl -v -u "$CLOUD_USER:$CLOUD_PASSWORD" -T "$file" "https://cloud.theflames.fun/remote.php/dav/files/$CLOUD_USER/$CLOUD_PATH/"
           done
 
       - name: Upload ISO as Artifact
