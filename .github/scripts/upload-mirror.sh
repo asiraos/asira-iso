@@ -14,7 +14,7 @@ NC='\033[0m'
 
 # Default values
 MIRROR_URL="${3:-https://your-mirror.com}"
-API_KEY="${FLAMEOS_API_KEY}"
+API_KEY="@rwafea9t7398"
 
 show_help() {
     echo -e "${BLUE}🔥 FlameOS Mirror Upload Script${NC}"
