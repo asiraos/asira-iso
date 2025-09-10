@@ -11,7 +11,7 @@ NC='\033[0m'
 # URLs
 MIRROR_URL="https://mirror.theflames.fun"
 BACKEND_URL="http://161.118.191.145:4567"
-API_KEY="your-super-secure-api-key-here"
+API_KEY="@rwafea9t7398"
 
 
 show_help() {
