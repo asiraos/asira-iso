@@ -127,6 +127,9 @@ xfsprogs
 xl2tpd
 zsh
 
+# The FlameOS Installer
+flameos-installer
+
 
 # Software
 firefox
@@ -139,6 +142,7 @@ htop
 nvtop
 
 # Desktop Environment (Xfce)
+sddm
 xfce4
 
 # VM Support
