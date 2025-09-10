@@ -1,0 +1,26 @@
+name: Minio Testing
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create public directory with test.txt
+        run: |
+          mkdir -p public
+          echo "Hello from FlameOS MinIO test upload!" > public/test.txt
+
+      - name: Minio Deploy
+        uses: lovellfelix/minio-deploy-action@v1
+        with:
+          endpoint: ${{ secrets.MINIO_ENDPOINT }}
+          access_key: ${{ secrets.MINIO_ACCESS_KEY }}
+          secret_key: ${{ secrets.MINIO_SECRET_KEY }}
+          bucket: 'test'
+          source_dir: 'public'
+          target_dir: ''
