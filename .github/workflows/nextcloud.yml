@@ -15,13 +15,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install zip wget -y
           mkdir -p out
-          wget https://mirror.nag.albony.in/archlinux/iso/2025.09.01/archlinux-2025.09.01-x86_64.iso -O out/archlinux-2025.09.01-x86_64.iso
+          wget https://mirror.adectra.com/archlinux/iso/2025.09.01/archlinux-2025.09.01-x86_64.iso -O out/archlinux-2025.09.01-x86_64.iso
 
       - name: Upload to Next Cloud
         uses: Nghi-NV/next-cloud-upload-action@v1
         with:
           id: uploadFile
-          filePath: "out/*"
+          filePath: "out/archlinux-2025.09.01-x86_64.iso"
           name: "documentation.zip"
           uploadPath: "aislx/FlameOS-Beta/"
           url: "cloud.theflames.fun"
