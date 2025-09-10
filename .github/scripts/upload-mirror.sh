@@ -13,7 +13,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # Default values
-MIRROR_URL="${3:-https://your-mirror.com}"
+MIRROR_URL="${3:-https://mirror.theflames.fun}"
 API_KEY="@rwafea9t7398"
 
 show_help() {
@@ -82,31 +82,68 @@ if [ -n "$FOLDER" ]; then
     echo ""
 fi
 
-# Upload file
-echo -e "${YELLOW}Uploading ISO file...${NC}"
+# Upload file with NO timeouts for unlimited file size support
+echo -e "${YELLOW}Uploading ISO file (no time limit for large files)...${NC}"
 
-# Build curl command
-CURL_CMD="curl -X POST -H \"X-API-Key: $API_KEY\" -F \"iso=@$ISO_FILE\""
+# Build curl command with NO timeouts
+CURL_CMD="curl -X POST"
+CURL_CMD="$CURL_CMD --max-time 0"
+CURL_CMD="$CURL_CMD --retry 3"
+CURL_CMD="$CURL_CMD --retry-delay 5"
+CURL_CMD="$CURL_CMD -H 'X-API-Key: $API_KEY'"
+CURL_CMD="$CURL_CMD -F 'iso=@$ISO_FILE'"
+
 if [ -n "$FOLDER" ]; then
-    CURL_CMD="$CURL_CMD -F \"folder=$FOLDER\""
+    CURL_CMD="$CURL_CMD -F 'folder=$FOLDER'"
 fi
-CURL_CMD="$CURL_CMD \"$MIRROR_URL/api/upload\""
 
-# Execute upload with progress
-upload_response=$(eval $CURL_CMD)
+CURL_CMD="$CURL_CMD '$MIRROR_URL/api/upload'"
 
-# Check response
+# Execute upload with no time limits
+echo "Starting upload (unlimited time for any file size)..."
+upload_response=$(eval $CURL_CMD 2>&1)
+curl_exit_code=$?
+
+# Check curl exit code
+if [ $curl_exit_code -ne 0 ]; then
+    echo -e "${RED}❌ Upload failed with curl error code: $curl_exit_code${NC}"
+    case $curl_exit_code in
+        7)
+            echo -e "${RED}Connection failed - check if server is running${NC}"
+            ;;
+        52)
+            echo -e "${RED}Server returned empty response${NC}"
+            ;;
+        56)
+            echo -e "${RED}Connection reset by server${NC}"
+            ;;
+        *)
+            echo -e "${RED}Unknown curl error${NC}"
+            ;;
+    esac
+    echo "Response: $upload_response"
+    exit 1
+fi
+
+# Check response content
 if echo "$upload_response" | grep -q "successfully"; then
     echo -e "${GREEN}✅ Upload successful!${NC}"
     
     # Extract download URL if available
     download_url=$(echo "$upload_response" | grep -o '"downloadUrl":"[^"]*"' | cut -d'"' -f4)
     if [ -n "$download_url" ]; then
-        echo -e "${BLUE}Download URL:${NC} $MIRROR_URL$download_url"
+        echo -e "${BLUE}Download URL:${NC} $download_url"
     fi
     
     echo ""
     echo "$upload_response" | jq '.' 2>/dev/null || echo "$upload_response"
+elif echo "$upload_response" | grep -q "Bad Gateway\|502\|504"; then
+    echo -e "${RED}❌ Server error (Bad Gateway/Timeout)${NC}"
+    echo -e "${YELLOW}Server needs configuration for large files${NC}"
+    echo -e "${BLUE}Check SERVER_CONFIG.md for setup instructions${NC}"
+    echo ""
+    echo "Server response: $upload_response"
+    exit 1
 else
     echo -e "${RED}❌ Upload failed!${NC}"
     echo "$upload_response"
