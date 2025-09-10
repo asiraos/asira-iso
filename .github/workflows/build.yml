@@ -15,20 +15,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: pacman -Syu --noconfirm archiso git openssh mktorrent
+        run: pacman -Syu --noconfirm archiso git openssh mktorrent curl
 
       - name: Build ISO
         run: |
           mkdir -p out work
           mkarchiso -v -w work -o out .
-
-      - name: Generate Torrent file
-        run: |
-          ISO_FILE=$(ls out/*.iso | head -n 1)
-          # Example tracker (you can add more with multiple -a flags)
-          TRACKER="udp://tracker.opentrackr.org:1337/announce"
-          mktorrent -a $TRACKER -o "$ISO_FILE.torrent" "$ISO_FILE"
-          ls -lh out
 
       - name: Add SSH key and trust SourceForge host
         env:
@@ -50,10 +42,20 @@ jobs:
         run: |
           scp -i $HOME/.ssh/id_ed25519 -o UserKnownHostsFile=$HOME/.ssh/known_hosts out/* $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
 
-      - name: Upload ISO & Torrent as Artifact
+      - name: Upload to FlameOS Cloud (Nextcloud WebDAV)
+        env:
+          CLOUD_USER: ${{ secrets.CLOUD_USER }}
+          CLOUD_PASSWORD: ${{ secrets.CLOUD_PASSWORD }}
+          CLOUD_PATH: ${{ secrets.CLOUD_PATH }}
+        shell: bash
+        run: |
+          for file in out/*; do
+            echo "Uploading $file to Nextcloud..."
+            curl -u "$CLOUD_USER:$CLOUD_PASSWORD" -T "$file" "https://cloud.theflames.fun/remote.php/dav/files/$CLOUD_USER/$CLOUD_PATH/"
+          done
+
+      - name: Upload ISO as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: flameos-release
-          path: |
-            out/*.iso
-            out/*.torrent
+          path: out/*.iso
