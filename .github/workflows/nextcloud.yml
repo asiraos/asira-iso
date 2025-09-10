@@ -24,7 +24,7 @@ jobs:
           filePath: "out/archlinux-2025.09.01-x86_64.iso"
           name: "archlinux-2025.09.01-x86_64.iso"
           uploadPath: "FlameOS-Beta"
-          url: "cloud.theflames.fun/remote.php/dav/files/aislx/"
+          url: "https://cloud.theflames.fun"
           username: ${{ secrets.CLOUD_USERNAME }}
           password: ${{ secrets.CLOUD_PASSWORD }}
       - name: Get upload link
