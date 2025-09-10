@@ -9,9 +9,10 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # URLs
-MIRROR_URL="${3:-https://mirror.theflames.fun}"
-BACKEND_URL="${BACKEND_URL:-http://161.118.191.145:4567}"
-API_KEY="${FLAMEOS_API_KEY:-your-super-secure-api-key-here}"
+MIRROR_URL="https://mirror.theflames.fun"
+BACKEND_URL="http://161.118.191.145:4567"
+API_KEY="your-super-secure-api-key-here"
+
 
 show_help() {
     echo "Usage: $0 <command> [options]"
