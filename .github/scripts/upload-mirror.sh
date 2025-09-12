@@ -9,10 +9,9 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # URLs
-MIRROR_URL="https://mirror.theflames.fun"
-BACKEND_URL="http://161.118.191.145:4567"
-API_KEY="@rwafea9t7398"
-
+MIRROR_URL="${3:-https://mirror.theflames.fun}"
+BACKEND_URL="${BACKEND_URL:-http://flame-production-flameosmirror-kwjazd-093119-161-118-191-145.traefik.me}"
+API_KEY="${FLAMEOS_API_KEY:-@rwafea9t7398}"
 
 show_help() {
     echo "Usage: $0 <command> [options]"
@@ -30,6 +29,34 @@ show_help() {
     echo "  $0 delete flameos.iso FlameOS-Beta"
 }
 
+create_folder() {
+    local folder="$1"
+    
+    if [ -n "$folder" ]; then
+        echo -e "${YELLOW}Creating folder path '$folder'...${NC}"
+        
+        # Split path and create each folder level
+        IFS='/' read -ra FOLDERS <<< "$folder"
+        current_path=""
+        
+        for f in "${FOLDERS[@]}"; do
+            if [ -n "$current_path" ]; then
+                current_path="$current_path/$f"
+            else
+                current_path="$f"
+            fi
+            
+            response=$(curl -s -X POST \
+                -H "X-API-Key: $API_KEY" \
+                -H "Content-Type: application/json" \
+                -d "{\"name\":\"$current_path\"}" \
+                "$BACKEND_URL/folders")
+        done
+        
+        echo -e "${GREEN}✅ Folder path ready${NC}"
+    fi
+}
+
 upload_file() {
     local file="$1"
     local folder="$2"
@@ -39,32 +66,16 @@ upload_file() {
         exit 1
     fi
     
+    # Create folder first if specified
+    create_folder "$folder"
+    
     echo -e "${YELLOW}Uploading $file to $BACKEND_URL...${NC}"
     
-    # Create folder first
-    if [ -n "$folder" ]; then
-        echo -e "${YELLOW}Creating folder: $folder${NC}"
-        curl -s -X POST \
-            -H "X-API-Key: $API_KEY" \
-            -H "Content-Type: application/json" \
-            -d "{\"name\":\"$folder\"}" \
-            "$BACKEND_URL/folders" > /dev/null || echo "Folder may already exist"
-        echo -e "${GREEN}✓ Folder ready${NC}"
-    fi
-    
-    # Upload file
-    if [ -n "$folder" ]; then
-        response=$(curl -# -X POST \
-            -H "X-API-Key: $API_KEY" \
-            -F "iso=@$file" \
-            -F "folder=$folder" \
-            "$BACKEND_URL/upload" 2>&1)
-    else
-        response=$(curl -# -X POST \
-            -H "X-API-Key: $API_KEY" \
-            -F "iso=@$file" \
-            "$BACKEND_URL/upload" 2>&1)
-    fi
+    response=$(curl -# -X POST \
+        -H "X-API-Key: $API_KEY" \
+        -F "iso=@$file" \
+        $([ -n "$folder" ] && echo "-F folder=$folder") \
+        "$BACKEND_URL/upload" 2>&1)
     
     echo ""
     if echo "$response" | grep -q "successfully"; then
