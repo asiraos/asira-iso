@@ -42,20 +42,16 @@ jobs:
         run: |
           scp -i $HOME/.ssh/id_ed25519 -o UserKnownHostsFile=$HOME/.ssh/known_hosts out/* $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
 
-      - name: Upload to FlameOS Cloud (Nextcloud WebDAV)
-        env:
-          CLOUD_USER: ${{ secrets.CLOUD_USER }}
-          CLOUD_PASSWORD: ${{ secrets.CLOUD_PASSWORD }}
-          CLOUD_PATH: ${{ secrets.CLOUD_PATH }}
+      - name: Upload to FlameOS Mirror (Official)
         shell: bash
         run: |
           # Ensure target folder exists
-          curl -s -u "$CLOUD_USER:$CLOUD_PASSWORD" -X MKCOL "https://cloud.theflames.fun/remote.php/dav/files/$CLOUD_USER/$CLOUD_PATH" || true
-
-          # Upload all files in out/
-          for file in out/*; do
-            echo "Uploading $file to Nextcloud..."
-            curl -v -u "$CLOUD_USER:$CLOUD_PASSWORD" -T "$file" "https://cloud.theflames.fun/remote.php/dav/files/$CLOUD_USER/$CLOUD_PATH/"
+          chmod +x ./.github/scripts/upload-mirror.sh
+          for file in ./out/*; do
+            if [ -f "$file" ]; then
+              echo "Uploading $file ..."
+              ./.github/scripts/upload-mirror.sh upload "$file" FlameOS-Beta
+            fi
           done
 
       - name: Upload ISO as Artifact
