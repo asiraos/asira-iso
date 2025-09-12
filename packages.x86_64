@@ -137,7 +137,7 @@ kitty
 
 # Desktop Environment (Xfce)
 sddm
-xfce4
+plasma-desktop
 
 # Needed Driver
 xf86-video-vesa

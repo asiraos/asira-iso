@@ -100,16 +100,14 @@ if [ -f "$airootfs/passwd" ]; then
     fi
 fi
 
-# Password 
-hash_pd=$(openssl passwd -6 "flame")
-
+# No password for flame user
 if [ -f "$airootfs/shadow" ]; then
     if grep -q "^$user:" "$airootfs/shadow" 2>/dev/null; then 
-        sed -i "s|^$user:.*|$user:$hash_pd:14871::::::|" "$airootfs/shadow"
-        echo "Password entry replaced."
+        sed -i "s|^$user:.*|$user::14871::::::|" "$airootfs/shadow"
+        echo "Passwordless entry replaced."
     else
-        sed -i "1 a\\$user:$hash_pd:14871::::::" "$airootfs/shadow"
-        echo "Password entry added."
+        sed -i "1 a\\$user::14871::::::" "$airootfs/shadow"
+        echo "Passwordless entry added."
     fi
 fi
 
@@ -169,5 +167,27 @@ if [ -f "$efiloader/loader.conf" ]; then
     sed -i 's/timeout 15/timeout 10/' "$efiloader/loader.conf" || true
     sed -i 's/beep on/beep off/' "$efiloader/loader.conf" || true
 fi
+
+# KDE Plasma wallpaper configuration
+flame_home="airootfs/home/flame"
+mkdir -p "$flame_home/.config"
+
+# Set wallpaper in plasma config
+cat > "$flame_home/.config/plasma-org.kde.plasma.desktop-appletsrc" <<EOF
+[Containments][1]
+activityId=
+formfactor=0
+immutability=1
+lastScreen=0
+location=0
+plugin=org.kde.plasma.folder
+wallpaperplugin=org.kde.image
+
+[Containments][1][Wallpaper][org.kde.image][General]
+Image=file:///home/flame/flameos-wallpaper.png
+EOF
+
+# Set ownership
+chown -R flame:flame "$flame_home/.config" 2>/dev/null || true
 
 echo "Branding fixes applied safely. Titles and visible labels updated, placeholders preserved."

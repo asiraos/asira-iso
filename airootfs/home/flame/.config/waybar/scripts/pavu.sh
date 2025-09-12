@@ -1,3 +1,0 @@
-killall pavucontrol
-pavucontrol
-

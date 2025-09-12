@@ -3,7 +3,7 @@
 
 iso_name="FlameOS"
 iso_label="FlameOS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
-iso_publisher="Arch Linux <https://archlinux.org>"
+iso_publisher="FlameOS <https://flameos.org>"
 iso_application="FlameOS Linux Live/Rescue DVD"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="arch"
