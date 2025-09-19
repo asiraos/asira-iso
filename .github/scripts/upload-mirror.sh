@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API_KEY="your-api-key-here"
-SERVER_URL="http://flame-production-flameosmirror-kwjazd-093119-161-118-191-145.traefik.me"
+SERVER_URL="http://161.118.191.145:6060"
 
 if [ $# -ne 2 ]; then
     echo "Usage: $0 <folder_path> <filename>"
