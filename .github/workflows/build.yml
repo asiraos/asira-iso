@@ -50,7 +50,7 @@ jobs:
           for file in ./out/*; do
             if [ -f "$file" ]; then
               echo "Uploading $file ..."
-              ./.github/scripts/upload-mirror.sh upload "$file" FlameOS-Beta
+              ./.github/scripts/upload-mirror.sh FlameOS-Alpha "$file"
             fi
           done
 
