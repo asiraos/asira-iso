@@ -22,25 +22,25 @@ jobs:
           mkdir -p out work
           mkarchiso -v -w work -o out .
 
-      - name: Add SSH key and trust SourceForge host
-        env:
-          SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
-        shell: bash
-        run: |
-          mkdir -p $HOME/.ssh
-          echo "$SF_SSH_KEY" > $HOME/.ssh/id_ed25519
-          chmod 600 $HOME/.ssh/id_ed25519
-          ssh-keyscan frs.sourceforge.net >> $HOME/.ssh/known_hosts
-          chmod 644 $HOME/.ssh/known_hosts
+#      - name: Add SSH key and trust SourceForge host
+#        env:
+#          SF_SSH_KEY: ${{ secrets.SF_SSH_KEY }}
+#        shell: bash
+#        run: |
+#          mkdir -p $HOME/.ssh
+#          echo "$SF_SSH_KEY" > $HOME/.ssh/id_ed25519
+#          chmod 600 $HOME/.ssh/id_ed25519
+#          ssh-keyscan frs.sourceforge.net >> $HOME/.ssh/known_hosts
+#          chmod 644 $HOME/.ssh/known_hosts
 
-      - name: Upload to SourceForge with SSH
-        env:
-          SF_USER: ${{ secrets.SF_USER }}
-          SF_PROJECT: ${{ secrets.SF_PROJECT }}
-          SF_PATH: ${{ secrets.SF_PATH }}
-        shell: bash
-        run: |
-          scp -i $HOME/.ssh/id_ed25519 -o UserKnownHostsFile=$HOME/.ssh/known_hosts out/* $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
+#      - name: Upload to SourceForge with SSH
+#        env:
+#          SF_USER: ${{ secrets.SF_USER }}
+#          SF_PROJECT: ${{ secrets.SF_PROJECT }}
+#          SF_PATH: ${{ secrets.SF_PATH }}
+#        shell: bash
+#       run: |
+#          scp -i $HOME/.ssh/id_ed25519 -o UserKnownHostsFile=$HOME/.ssh/known_hosts out/* $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
 
       - name: Upload to FlameOS Mirror (Official)
         shell: bash
