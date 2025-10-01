@@ -1,4 +1,4 @@
-name: Build FlameOS ISO
+name: Build AsiraOS ISO
 
 on:
   workflow_dispatch:
@@ -42,7 +42,7 @@ jobs:
 #       run: |
 #          scp -i $HOME/.ssh/id_ed25519 -o UserKnownHostsFile=$HOME/.ssh/known_hosts out/* $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_PATH/
 
-      - name: Upload to FlameOS Mirror (Official)
+      - name: Upload to AsiraOS Mirror (Official)
         shell: bash
         run: |
           # Ensure target folder exists
@@ -50,12 +50,12 @@ jobs:
           for file in ./out/*; do
             if [ -f "$file" ]; then
               echo "Uploading $file ..."
-              ./.github/scripts/upload-mirror.sh FlameOS-Alpha "$file"
+              ./.github/scripts/upload-mirror.sh AsiraOS-Alpha "$file"
             fi
           done
 
       - name: Upload ISO as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: flameos-release
+          name: asiraos-release
           path: out/*.iso
