@@ -127,27 +127,28 @@ xfsprogs
 xl2tpd
 zsh
 
-# The FlameOS Installer
-flameos-installer
+# The AsiraOS Installer
+asira-installer
+fzf
 
 
-# Software
-firefox
-kitty
+## Software
+#firefox
+#kitty
 
-# Desktop Environment (Xfce)
-sddm
-plasma-desktop
+## Desktop Environment
+#sddm
+#plasma-desktop
 
-# Needed Driver
-xf86-video-vesa
-mesa
+## Needed Driver
+#xf86-video-vesa
+#mesa
 
-# VM Support
-spice-vdagent
-open-vm-tools
-xf86-input-vmmouse
-xf86-video-qxl
+## VM Support
+#spice-vdagent
+#open-vm-tools
+#xf86-input-vmmouse
+#xf86-video-qxl
 
 # GPU Drivers
 

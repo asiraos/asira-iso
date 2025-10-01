@@ -13,7 +13,7 @@ jobs:
       - name: Create public directory with test.txt
         run: |
           mkdir -p public
-          echo "Hello from FlameOS MinIO test upload!" > public/test.txt
+          echo "Hello from AsiraOS MinIO test upload!" > public/test.txt
 
       - name: Minio Deploy
         uses: lovellfelix/minio-deploy-action@v1

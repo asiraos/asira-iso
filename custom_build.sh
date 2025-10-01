@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
 set -euo pipefail
 
 airootfs="airootfs/etc"
@@ -13,7 +14,7 @@ fi
 if [ -f "/usr/lib/os-release" ]; then
     cp -f "/usr/lib/os-release" "$airootfs/"
     # change only NAME field
-    sed -i 's/^NAME=.*/NAME="FlameOS Linux"/' "$airootfs/os-release"
+    sed -i 's/^NAME=.*/NAME="AsiraOS Linux"/' "$airootfs/os-release"
 fi
 
 # wheel group
@@ -33,9 +34,9 @@ ln -sf "/usr/lib/systemd/system/NetworkManager-dispatcher.service" "$airootfs/sy
 if compgen -G "syslinux/*.cfg" >/dev/null; then
     for f in syslinux/*.cfg; do
         # change common visible 'Arch Linux' menu labels safely
-        sed -i '/^[[:space:]]*MENU LABEL/ s/Arch Linux/FlameOS Linux/g' "$f" || true
-        sed -i '/^[[:space:]]*label[[:space:]]/ s/Arch Linux/FlameOS Linux/g' "$f" || true
-        sed -i '/^[[:space:]]*DEFAULT/ s/Arch/FlameOS/g' "$f" || true
+        sed -i '/^[[:space:]]*MENU LABEL/ s/Arch Linux/AsiraOS Linux/g' "$f" || true
+        sed -i '/^[[:space:]]*label[[:space:]]/ s/Arch Linux/AsiraOS Linux/g' "$f" || true
+        sed -i '/^[[:space:]]*DEFAULT/ s/Arch/AsiraOS/g' "$f" || true
     done
 fi
 
@@ -58,9 +59,9 @@ fi
 
 # Desktop Environment (safe replace for Session line)
 if grep -q "^Session=" "$airootfs/sddm.conf" 2>/dev/null; then
-    sed -i 's/^Session=.*/Session=xfce.desktop/' "$airootfs/sddm.conf"
+    sed -i 's/^Session=.*/Session=hyprland.desktop/' "$airootfs/sddm.conf"
 else
-    echo "Session=xfce.desktop" >> "$airootfs/sddm.conf"
+    echo "Session=hyprland.desktop" >> "$airootfs/sddm.conf"
 fi
 
 # Display Server
@@ -77,17 +78,27 @@ else
     echo "Numlock=on" >> "$airootfs/sddm.conf"
 fi
 
-# User
-user="flame"
+# Auto-login configuration
+user="asira"
 if grep -q "^User=" "$airootfs/sddm.conf" 2>/dev/null; then
     sed -i "s/^User=.*/User=$user/" "$airootfs/sddm.conf"
 else
     echo "User=$user" >> "$airootfs/sddm.conf"
 fi
 
+# Enable auto-login
+if grep -q "^Session=" "$airootfs/sddm.conf" 2>/dev/null; then
+    sed -i 's/^Session=.*/Session=hyprland.desktop/' "$airootfs/sddm.conf"
+else
+    echo "Session=hyprland.desktop" >> "$airootfs/sddm.conf"
+fi
+
+# Create autologin group and add user
+echo "autologin:x:969:$user" >> "$airootfs/group"
+
 # Hostname
 mkdir -p "$(dirname "$airootfs/hostname")"
-echo "flameos" > "$airootfs/hostname"
+echo "asiraos" > "$airootfs/hostname"
 
 # Adding the new user to passwd
 if [ -f "$airootfs/passwd" ]; then
@@ -100,7 +111,7 @@ if [ -f "$airootfs/passwd" ]; then
     fi
 fi
 
-# No password for flame user
+# No password for asira user
 if [ -f "$airootfs/shadow" ]; then
     if grep -q "^$user:" "$airootfs/shadow" 2>/dev/null; then 
         sed -i "s|^$user:.*|$user::14871::::::|" "$airootfs/shadow"
@@ -122,6 +133,7 @@ adm:x:4:$user
 wheel:x:10:$user
 uucp:x:14:$user
 users:x:100:$user
+autologin:x:969:$user
 $user:x:1000:$user
 EOF
 
@@ -135,10 +147,10 @@ EOF
 grubcfg="grub/grub.cfg"
 if [ -f "$grubcfg" ]; then
     # Change the visible default label only (do not touch archisobasedir or UUID placeholders)
-    sed -i 's/default=archlinux/default=flameos/' "$grubcfg" || true
+    sed -i 's/default=archlinux/default=asiraos/' "$grubcfg" || true
     sed -i 's/timeout=15/timeout=10/' "$grubcfg" || true
     # Replace only menuentry titles that start with Arch (keeps options intact)
-    sed -i '/^[[:space:]]*menuentry[[:space:]]"Arch/ s/Arch/FlameOS/' "$grubcfg" || true
+    sed -i '/^[[:space:]]*menuentry[[:space:]]"Arch/ s/Arch/AsiraOS/' "$grubcfg" || true
 
     if ! grep -q 'archisosearchuuid=%ARCHISO_UUID% cow_spacesize=10G copytoram=n' "$grubcfg" 2> /dev/null; then
         sed -i 's/archisosearchuuid=%ARCHISO_UUID%/archisosearchuuid=%ARCHISO_UUID% cow_spacesize=10G copytoram=n/' "$grubcfg" || true
@@ -154,11 +166,11 @@ efiloader="efiboot/loader"
 if [ -d "$efiloader/entries" ]; then
     # First entry
     if [ -f "$efiloader/entries/01-archiso-x86_64-linux.conf" ]; then
-        sed -i 's/^title.*/title    FlameOS Linux install medium (x86_64, UEFI)/' "$efiloader/entries/01-archiso-x86_64-linux.conf"
+        sed -i 's/^title.*/title    AsiraOS Linux install medium (x86_64, UEFI)/' "$efiloader/entries/01-archiso-x86_64-linux.conf"
     fi
     # Second entry
     if [ -f "$efiloader/entries/02-archiso-x86_64-speech-linux.conf" ]; then
-        sed -i 's/^title.*/title    FlameOS Linux install medium (x86_64, UEFI) with speech/' "$efiloader/entries/02-archiso-x86_64-speech-linux.conf"
+        sed -i 's/^title.*/title    AsiraOS Linux install medium (x86_64, UEFI) with speech/' "$efiloader/entries/02-archiso-x86_64-speech-linux.conf"
     fi
 fi
 
@@ -169,25 +181,10 @@ if [ -f "$efiloader/loader.conf" ]; then
 fi
 
 # KDE Plasma wallpaper configuration
-flame_home="airootfs/home/flame"
-mkdir -p "$flame_home/.config"
-
-# Set wallpaper in plasma config
-cat > "$flame_home/.config/plasma-org.kde.plasma.desktop-appletsrc" <<EOF
-[Containments][1]
-activityId=
-formfactor=0
-immutability=1
-lastScreen=0
-location=0
-plugin=org.kde.plasma.folder
-wallpaperplugin=org.kde.image
-
-[Containments][1][Wallpaper][org.kde.image][General]
-Image=file:///home/flame/flameos-wallpaper.png
-EOF
+asira_home="airootfs/home/asira"
+mkdir -p "$asira_home/.config"
 
 # Set ownership
-chown -R flame:flame "$flame_home/.config" 2>/dev/null || true
+chown -R asira:asira "$asira_home/.config" 2>/dev/null || true
 
 echo "Branding fixes applied safely. Titles and visible labels updated, placeholders preserved."

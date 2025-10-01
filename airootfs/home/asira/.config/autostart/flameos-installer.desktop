@@ -1,7 +1,8 @@
+
 [Desktop Entry]
 Type=Application
-Name=FlameOS Installer
-Exec=flameos-installer
+Name=AsiraOS Installer
+Exec=asiraos-installer
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

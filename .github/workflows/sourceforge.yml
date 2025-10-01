@@ -30,4 +30,4 @@ jobs:
           SF_USER: ${{ secrets.SF_USER }}
           SF_PROJECT: ${{ secrets.SF_PROJECT }}
         run: |
-          scp -i ~/.ssh/id_ed25519 out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/FlameOS-BETA/
+          scp -i ~/.ssh/id_ed25519 out/hello.txt $SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/AsiraOS-BETA/

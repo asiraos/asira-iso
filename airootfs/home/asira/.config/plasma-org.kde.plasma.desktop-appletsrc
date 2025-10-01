@@ -8,4 +8,4 @@ plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
 [Containments][1][Wallpaper][org.kde.image][General]
-Image=file:///home/flame/flameos-wallpaper.png
+Image=file:///home/asira/asiraos-wallpaper.png

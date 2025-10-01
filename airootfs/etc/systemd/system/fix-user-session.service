@@ -1,10 +1,11 @@
+
 [Unit]
 Description=Fix user session permissions for Hyprland
 After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c 'chown -R flame:flame /home/flame && chmod -R 755 /home/flame/.config'
+ExecStart=/bin/bash -c 'chown -R asira:asira /home/asira && chmod -R 755 /home/asira/.config'
 RemainAfterExit=yes
 
 [Install]

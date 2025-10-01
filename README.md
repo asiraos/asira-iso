@@ -1,11 +1,9 @@
-# FlameOS ISO
-
 A modern Arch Linux-based live ISO featuring Hyprland wayland compositor with a beautiful, minimal desktop experience.
 
 ## Features
 
 - **Hyprland Wayland Compositor** - Dynamic tiling window manager
-- **Auto-login** - Boots directly to desktop as `flame` user
+- **Auto-login** - Boots directly to desktop as `asira` user
 - **Modern Applications** - Firefox, Dolphin, Kitty terminal, MPV player
 - **GPU Support** - NVIDIA, Intel, and AMD drivers included
 - **VM Ready** - VMware and QEMU/KVM support
@@ -25,7 +23,7 @@ A modern Arch Linux-based live ISO featuring Hyprland wayland compositor with a 
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd flameos-iso
+cd asiraos-iso
 
 # Build the ISO
 ./build.sh
@@ -38,11 +36,11 @@ cd flameos-iso
 
 1. Flash the ISO to USB drive using `dd`, Rufus, or Balena Etcher
 2. Boot from USB
-3. FlameOS will auto-login and start Hyprland
+3. AsiraOS will auto-login and start Hyprland
 
 ## Default Credentials
 
-- **Username**: `flame`
+- **Username**: `asira`
 - **Password**: No password (auto-login enabled)
 - **Root**: No password set
 
@@ -89,7 +87,7 @@ cd flameos-iso
 
 ### Wallpaper
 
-Default wallpaper located at: `/home/flame/flameos-wallpaper.png`
+Default wallpaper located at: `/home/flame/asiraos-wallpaper.png`
 
 ### Hyprland Config
 
@@ -101,7 +99,7 @@ Status bar config in: `/home/flame/.config/waybar/`
 
 ## Installation to Hard Drive
 
-FlameOS includes `archinstall` for easy system installation:
+AsiraOS includes `archinstall` for easy system installation:
 
 ```bash
 # Run the installer
@@ -140,7 +138,7 @@ iwctl station wlan0 connect "SSID"
 ### File Structure
 
 ```
-flameos-iso/
+asiraos-iso/
 ├── airootfs/          # Root filesystem overlay
 ├── grub/              # GRUB bootloader config
 ├── syslinux/          # Syslinux bootloader config
@@ -184,4 +182,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**FlameOS** - _Ignite your desktop experience_ 🔥
+**AsiraOS** - _Ignite your desktop experience_ 🔥

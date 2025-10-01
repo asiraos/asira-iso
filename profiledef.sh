@@ -1,10 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
 # shellcheck disable=SC2034
 
-iso_name="FlameOS"
-iso_label="FlameOS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
-iso_publisher="FlameOS <https://flameos.org>"
-iso_application="FlameOS Linux Live/Rescue DVD"
+iso_name="AsiraOS"
+iso_label="AsiraOS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
+iso_publisher="AsiraOS <https://asiraos.in>"
+iso_application="AsiraOS Linux Live/Rescue DVD"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="arch"
 buildmodes=('iso')
@@ -21,7 +22,7 @@ file_permissions=(
   ["/etc/gshadow"]="0:0:400"
   ["/root"]="0:0:750"
   ["/etc/sudoers.d/g_wheel"]="0:0:440"
-  ["/etc/sudoers.d/00-flame-nopasswd"]="0:0:440"
+  ["/etc/sudoers.d/00-asira-nopasswd"]="0:0:440"
   ["/root/.automated_script.sh"]="0:0:755"
   ["/root/.gnupg"]="0:0:700"
   ["/usr/local/bin/choose-mirror"]="0:0:755"

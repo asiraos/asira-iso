@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 [ "${TERM:-none}" = "linux" ] && \
     printf '%b' '\e]P0100907
                  \e]P19B2407

@@ -1,6 +1,7 @@
 root:x:0:root
-adm:x:4:flame
-wheel:x:10:flame
-uucp:x:14:flame
-users:x:100:flame
-flame:x:1000:flame
+adm:x:4:asira
+wheel:x:10:asira
+uucp:x:14:asira
+users:x:100:asira
+autologin:x:969:asira
+asira:x:1000:asira
