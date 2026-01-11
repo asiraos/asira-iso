@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API_KEY="your-api-key-here"
-SERVER_URL="http://141.148.198.187:6060"
+SERVER_URL="https://upload.asiraos.qzz.io"
 
 if [ $# -ne 2 ]; then
     echo "Usage: $0 <folder_path> <filename>"
