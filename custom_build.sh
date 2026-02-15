@@ -148,7 +148,9 @@ grubcfg="grub/grub.cfg"
 if [ -f "$grubcfg" ]; then
     # Change the visible default label only (do not touch archisobasedir or UUID placeholders)
     sed -i 's/default=archlinux/default=asiraos/' "$grubcfg" || true
-    sed -i 's/timeout=15/timeout=10/' "$grubcfg" || true
+    sed -i 's/timeout=15/timeout=0/' "$grubcfg" || true
+    sed -i 's/timeout=10/timeout=0/' "$grubcfg" || true
+    sed -i 's/timeout_style=menu/timeout_style=hidden/' "$grubcfg" || true
     # Replace only menuentry titles that start with Arch (keeps options intact)
     sed -i '/^[[:space:]]*menuentry[[:space:]]"Arch/ s/Arch/AsiraOS/' "$grubcfg" || true
 
@@ -176,7 +178,8 @@ fi
 
 # Loader config tweaks - safe substitutions only
 if [ -f "$efiloader/loader.conf" ]; then
-    sed -i 's/timeout 15/timeout 10/' "$efiloader/loader.conf" || true
+    sed -i 's/timeout 15/timeout 0/' "$efiloader/loader.conf" || true
+    sed -i 's/timeout 10/timeout 0/' "$efiloader/loader.conf" || true
     sed -i 's/beep on/beep off/' "$efiloader/loader.conf" || true
 fi
 

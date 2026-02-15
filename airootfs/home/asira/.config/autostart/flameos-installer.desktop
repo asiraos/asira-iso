@@ -2,7 +2,7 @@
 [Desktop Entry]
 Type=Application
 Name=AsiraOS Installer
-Exec=asiraos-installer
+Exec=asira-installer
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
