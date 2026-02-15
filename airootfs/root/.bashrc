@@ -1,4 +1,3 @@
-systemctl enable --now networkmanager
 check_internet() {
     ping -c 1 -W 1 8.8.8.8 &> /dev/null
 }
@@ -10,5 +9,5 @@ else
     nmtui
 fi
 
-sudo pacman -Sy asira-installer 
+sudo pacman -Sy asira-installer --noconfirm 
 asira-installer
